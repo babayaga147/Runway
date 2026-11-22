@@ -1,7 +1,6 @@
 (()=>{
 'use strict';
 /* Shared behaviour for the shop pages (not loaded on the home page, which has its own bag). */
-const SHOP='nike-makknzjs.myshopify.com';
 const KEY='runway-styling-bag-v3'; /* same key as the home page, so the bag is shared */
 const cat=window.SITE_CATALOG;
 const $=(s,r)=>(r||document).querySelector(s);
@@ -76,7 +75,7 @@ const drawBag=()=>{
   $('[data-count]',bagRoot).textContent=count()+(count()===1?' piece':' pieces');
 };
 
-/* ---- checkout page ---- */
+/* ---- checkout page (demo: nothing is sent or saved) ---- */
 const co=$('[data-checkout]');
 const drawCheckout=()=>{
   if(!co) return;
@@ -89,12 +88,22 @@ const drawCheckout=()=>{
     r.append(el('span',null,`${f.item.name} · ${f.variant.o.join(' / ')} × ${e.quantity}`),el('span',null,money(f.item.price*e.quantity)));
     rows.appendChild(r);
   });
-  $('[data-subtotal]',co).textContent=money(subtotal());
-  const go=$('[data-handoff]',co);
-  /* Shopify cart permalink: /cart/VARIANT:QTY,VARIANT:QTY */
-  const url=new URL('https://'+SHOP+'/cart/'+entries.map(e=>e.id+':'+e.quantity).join(','));
-  go.href=url.hostname===SHOP?url.href:'#';
+  $$('[data-subtotal]',co).forEach(n=>n.textContent=money(subtotal()));
 };
+const form=$('[data-co-form]');
+if(form) form.addEventListener('submit',ev=>{
+  ev.preventDefault();
+  if(!form.checkValidity()){form.reportValidity();return}
+  if(!entries.length) return;
+  const ref='RW-'+String(Math.floor(100000+Math.random()*900000));
+  const lines=$('[data-done-lines]');lines.textContent='';
+  entries.forEach(e=>{const f=find(e.id);if(!f) return;const r=el('div','sx-sum__r');r.append(el('span',null,`${f.item.name} · ${f.variant.o.join(' / ')} × ${e.quantity}`),el('span',null,money(f.item.price*e.quantity)));lines.appendChild(r)});
+  $('[data-done-total]').textContent=money(subtotal());
+  $('[data-ref]').textContent=ref;
+  entries=[];save();counter();
+  $('[data-co-main]').hidden=true;$('[data-co-note]').hidden=true;$('[data-done]').hidden=false;
+  scrollTo({top:0,behavior:reduced?'auto':'smooth'});
+});
 
 counter();drawBag();drawCheckout();
 })();
