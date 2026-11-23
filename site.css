@@ -196,3 +196,10 @@ button:focus-visible,a:focus-visible{outline:2px solid #151413;outline-offset:4p
 
 .brand-name{font-family:Fraunces,"Abril Fatface",Georgia,"Times New Roman",serif;font-weight:900;font-size:28px;letter-spacing:-.01em;font-variation-settings:"SOFT" 100,"WONK" 1}
 @media (max-width:749px){.brand-name{font-size:21px}}
+
+/* centred script wordmark */
+.site-header nav{margin-right:auto}
+.brand{margin-right:0;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1}
+.brand-name{font-family:"Great Vibes","Pinyon Script",cursive;font-weight:400;font-size:52px;letter-spacing:0;line-height:1;font-variation-settings:normal;padding:6px 0 10px}
+@media (max-width:749px){.brand-name{font-size:34px;padding:2px 0 6px}}
+@media (max-width:749px){.site-header nav{display:none}#open-bag{margin-left:auto}}
