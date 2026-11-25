@@ -1,8 +1,11 @@
 {{ 'runway.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'runway.js' | asset_url }}" defer></script>
 
-{%- assign looks = section.blocks | where: 'settings.image' -%}
-{%- if looks.size == 0 -%}
+{%- assign look_count = 0 -%}
+{%- for block in section.blocks -%}
+  {%- if block.settings.image -%}{%- assign look_count = look_count | plus: 1 -%}{%- endif -%}
+{%- endfor -%}
+{%- if look_count == 0 -%}
   <p class="sx-wrap sx-lede">{{ 'runway.no_looks' | t }}</p>
 {%- else -%}
 <runway-section id="Runway-{{ section.id }}" class="rw rw--add-icon rw--popup rw--list has-dividers has-border" data-feel="balanced" data-blur="true" data-mblur="true" data-style="ring" data-mstyle="classic" data-fit="true" data-height-mode="original" data-height-vh="100" data-mheight-mode="custom" data-mheight-vh="109" data-reflect="false" data-autoplay="{{ section.settings.autoplay }}" data-speed="{{ section.settings.speed | times: 1000 }}" data-after-add="stay" data-bundle-code="{{ section.settings.bundle_code | escape }}" data-msg-choose="{{ 'runway.choose_size' | t }}" data-msg-error="{{ 'runway.error' | t }}" data-msg-soldout="{{ 'runway.sold_out' | t }}" style="--rw-speed:{{ section.settings.speed }}s" {{ section.shopify_attributes }}>
@@ -18,13 +21,21 @@
 
       <div class="rw__stage" data-rw-stage tabindex="0" role="region" aria-roledescription="carousel" aria-label="{{ section.settings.heading | escape }}">
         <div class="rw__actors" data-rw-actors>
-          {%- for block in looks -%}
-            {%- render 'runway-actor', block: block, index: forloop.index0, image: block.settings.image -%}
+          {%- assign look_index = -1 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.image -%}
+              {%- assign look_index = look_index | plus: 1 -%}
+            {%- render 'runway-actor', block: block, index: look_index, image: block.settings.image -%}
+            {%- endif -%}
           {%- endfor -%}
         </div>
         <div class="rw__heroes" data-rw-heroes>
-          {%- for block in looks -%}
-            {%- render 'runway-hero', block: block, index: forloop.index0, image: block.settings.image, products: block.settings.products -%}
+          {%- assign look_index = -1 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.image -%}
+              {%- assign look_index = look_index | plus: 1 -%}
+            {%- render 'runway-hero', block: block, index: look_index, image: block.settings.image, products: block.settings.products -%}
+            {%- endif -%}
           {%- endfor -%}
         </div>
         <span class="rw__sweep"></span>
@@ -35,8 +46,12 @@
       <div class="rw__controls">
         <button class="rw__icon" type="button" data-rw-prev aria-label="{{ 'runway.previous' | t }}"><svg width="26" height="14" viewBox="0 0 26 14" aria-hidden="true"><path d="M25 7H1M7 1L1 7l6 6"/></svg></button>
         <div class="rw__ticks">
-          {%- for block in looks -%}
-            {%- render 'runway-tick', block: block, index: forloop.index0 -%}
+          {%- assign look_index = -1 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.image -%}
+              {%- assign look_index = look_index | plus: 1 -%}
+            {%- render 'runway-tick', block: block, index: look_index -%}
+            {%- endif -%}
           {%- endfor -%}
         </div>
         <button class="rw__icon rw__auto" type="button" data-rw-auto aria-pressed="false" aria-label="{{ 'runway.autoplay' | t }}">
@@ -58,9 +73,13 @@
 
     <aside class="rw__panel has-rule"><div class="rw__panel-inner">
       <div class="rw__panel-head"><h3 class="rw__panel-title">{{ 'runway.in_this_look' | t }}</h3><span class="rw__label" data-rw-pieces></span></div>
-      {%- for block in looks -%}
-        {%- render 'runway-panel', block: block, index: forloop.index0, products: block.settings.products, percent: section.settings.bundle_percent -%}
-      {%- endfor -%}
+      {%- assign look_index = -1 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.image -%}
+              {%- assign look_index = look_index | plus: 1 -%}
+        {%- render 'runway-panel', block: block, index: look_index, products: block.settings.products, percent: section.settings.bundle_percent -%}
+            {%- endif -%}
+          {%- endfor -%}
     </div></aside>
   </div></div>
 </runway-section>
