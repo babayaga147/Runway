@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "main": {
+      "type": "try-on"
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

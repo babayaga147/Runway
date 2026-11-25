@@ -73,5 +73,19 @@
     "not_found_title": "Page not found",
     "not_found_text": "The page you are looking for doesn’t exist.",
     "back_home": "Back to home"
+  },
+  "try_on": {
+    "hint": "Use your camera or upload a photo to begin.",
+    "use_camera": "Use camera",
+    "upload": "Upload photo",
+    "take_photo": "Take photo",
+    "choose": "Choose a piece",
+    "size": "Size",
+    "rotate": "Rotate",
+    "remove_white": "Remove white background",
+    "drag_note": "Drag the piece to move it. Pinch or use the slider to resize.",
+    "save": "Save picture",
+    "privacy": "Your photo stays on your device and is never uploaded.",
+    "camera_denied": "Camera unavailable. Please allow camera access or upload a photo."
   }
 }

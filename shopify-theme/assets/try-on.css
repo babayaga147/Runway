@@ -1,0 +1,19 @@
+.tryon__grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:48px;margin-top:40px;align-items:start}
+.tryon__stage{position:relative;background:#f4f3f1;min-height:480px;display:grid;place-items:center;overflow:hidden;touch-action:none}
+.tryon__video,.tryon__canvas{display:block;width:100%;height:auto;max-height:80vh;object-fit:contain}
+.tryon__hint{margin:0;padding:24px;text-align:center;font-size:13px;color:#66625c;max-width:320px}
+.tryon__stage:not(:has([data-hint]:not([hidden]))) .tryon__hint{display:none}
+.tryon__panel{display:flex;flex-direction:column;gap:20px}
+.tryon__row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.tryon__upload{cursor:pointer}
+.tryon__title{margin:8px 0 0;font-size:18px;font-weight:400}
+.tryon__garments{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tryon__garment{display:flex;flex-direction:column;gap:6px;padding:8px;border:1px solid #c8c8c8;background:#fff;cursor:pointer;text-align:left;font-size:11px}
+.tryon__garment img{width:100%;aspect-ratio:1;object-fit:contain;background:#f4f3f1}
+.tryon__garment[aria-pressed="true"]{border-color:#151413;outline:1px solid #151413}
+.tryon__controls{display:flex;flex-direction:column;gap:16px;border-top:1px solid #c8c8c8;padding-top:20px}
+.tryon__controls label{display:flex;flex-direction:column;gap:8px;font-size:11px}
+.tryon__controls input[type=range]{width:100%;accent-color:#151413}
+.tryon__check{flex-direction:row!important;align-items:center;gap:10px!important}
+.tryon__note,.tryon__privacy{margin:0;font-size:11px;line-height:1.5;color:#66625c}
+@media (max-width:899px){.tryon__grid{grid-template-columns:1fr;gap:28px}.tryon__stage{min-height:360px}}

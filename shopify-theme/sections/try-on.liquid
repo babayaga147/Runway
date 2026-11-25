@@ -1,0 +1,77 @@
+{{ 'try-on.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'try-on.js' | asset_url }}" defer></script>
+
+<section class="sx-wrap sx-page tryon" data-try-on {{ section.shopify_attributes }}>
+  <p class="sx-eyebrow">{{ section.settings.eyebrow }}</p>
+  <h1 class="sx-h1">{{ section.settings.heading }}</h1>
+  <p class="sx-lede">{{ section.settings.text }}</p>
+
+  <div class="tryon__grid">
+    <div class="tryon__stage" data-stage>
+      <video class="tryon__video" data-video playsinline muted hidden></video>
+      <canvas class="tryon__canvas" data-canvas hidden></canvas>
+      <p class="tryon__hint" data-hint>{{ 'try_on.hint' | t }}</p>
+    </div>
+
+    <div class="tryon__panel">
+      <div class="tryon__row">
+        <button class="sx-btn" type="button" data-camera>{{ 'try_on.use_camera' | t }}</button>
+        <label class="sx-btn tryon__upload">
+          {{ 'try_on.upload' | t }}
+          <input type="file" accept="image/*" capture="user" data-file hidden>
+        </label>
+        <button class="sx-btn" type="button" data-snap hidden>{{ 'try_on.take_photo' | t }}</button>
+      </div>
+
+      <h2 class="tryon__title">{{ 'try_on.choose' | t }}</h2>
+      <div class="tryon__garments" role="list">
+        {%- for block in section.blocks -%}
+          {%- assign product = block.settings.product -%}
+          {%- assign image = block.settings.image | default: product.featured_image -%}
+          {%- if product and image -%}
+            <button class="tryon__garment" type="button" role="listitem" data-garment="{{ image | image_url: width: 800 }}" data-url="{{ product.url }}" data-title="{{ product.title | escape }}" aria-pressed="false" {{ block.shopify_attributes }}>
+              <img src="{{ image | image_url: width: 200 }}" alt="" width="100" height="{{ 100 | divided_by: image.aspect_ratio | round }}" loading="lazy">
+              <span>{{ product.title }}</span>
+            </button>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <div class="tryon__controls" data-controls hidden>
+        <label>{{ 'try_on.size' | t }}<input type="range" min="10" max="200" value="60" data-size></label>
+        <label>{{ 'try_on.rotate' | t }}<input type="range" min="-45" max="45" value="0" data-rotate></label>
+        <label class="tryon__check"><input type="checkbox" checked data-multiply> {{ 'try_on.remove_white' | t }}</label>
+        <p class="tryon__note">{{ 'try_on.drag_note' | t }}</p>
+        <div class="tryon__row">
+          <button class="sx-btn" type="button" data-save>{{ 'try_on.save' | t }}</button>
+          <a class="sx-link" href="#" data-product-link hidden>{{ 'product.view_product' | t }}</a>
+        </div>
+      </div>
+
+      <p class="tryon__privacy">{{ 'try_on.privacy' | t }}</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Try it on",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Try it on" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "See it on you." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Take a photo with your phone or upload one, pick a piece, then drag and resize it to fit." }
+  ],
+  "blocks": [
+    {
+      "type": "garment",
+      "name": "Garment",
+      "limit": 24,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "image_picker", "id": "image", "label": "Garment image", "info": "Optional. A transparent PNG works best; otherwise the product image is used." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Try it on" }]
+}
+{% endschema %}
