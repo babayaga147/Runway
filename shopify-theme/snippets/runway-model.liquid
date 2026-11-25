@@ -1,0 +1,5 @@
+{%- comment -%}
+  Model image used by the ring (actor) and by the hero.
+  Params: image, name, index, hit (true for the ring actor), products, block
+{%- endcomment -%}
+<img src="{{ image | image_url: width: 640 }}" srcset="{{ image | image_url: width: 640 }} 640w, {{ image | image_url: width: 1080 }} 1080w" sizes="(min-width: 1800px) 540px, (min-width: 750px) 420px, 320px" loading="eager" decoding="async" width="{{ image.width }}" height="{{ image.height }}" draggable="false" data-model-image alt="{{ name | escape }}">

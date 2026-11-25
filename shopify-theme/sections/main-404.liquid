@@ -1,0 +1,11 @@
+<div class="sx-wrap sx-page">
+  <h1 class="sx-h1">{{ 'page.not_found_title' | t }}</h1>
+  <p class="sx-lede">{{ 'page.not_found_text' | t }}</p>
+  <a class="sx-btn" href="{{ routes.root_url }}">{{ 'page.back_home' | t }}</a>
+</div>
+
+{% schema %}
+{
+  "name": "Not found"
+}
+{% endschema %}

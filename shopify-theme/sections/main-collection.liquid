@@ -1,0 +1,32 @@
+<div class="sx-wrap sx-cat">
+  <p class="sx-eyebrow">{{ 'collection.eyebrow' | t }}</p>
+  <h1 class="sx-h1">{{ collection.title }}</h1>
+  {%- if collection.description != blank -%}<p class="sx-lede">{{ collection.description | strip_html | truncate: 200 }}</p>{%- endif -%}
+</div>
+
+{%- paginate collection.products by section.settings.per_page -%}
+  {%- for product in collection.products -%}
+    {%- assign is_reversed = false -%}
+    {%- assign parity = forloop.index0 | modulo: 2 -%}
+    {%- if parity == 1 -%}{%- assign is_reversed = true -%}{%- endif -%}
+    {%- render 'product-row', product: product, reverse: is_reversed, eager: forloop.first -%}
+  {%- else -%}
+    <p class="sx-wrap sx-lede">{{ 'collection.empty' | t }}</p>
+  {%- endfor -%}
+
+  {%- if paginate.pages > 1 -%}
+    <nav class="sx-wrap sx-pager" aria-label="Pagination">
+      {%- if paginate.previous -%}<a class="sx-link" href="{{ paginate.previous.url }}">{{ 'collection.previous' | t }}</a>{%- endif -%}
+      {%- if paginate.next -%}<a class="sx-link" href="{{ paginate.next.url }}">{{ 'collection.next' | t }}</a>{%- endif -%}
+    </nav>
+  {%- endif -%}
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "Products per page", "min": 4, "max": 24, "step": 2, "default": 12 }
+  ]
+}
+{% endschema %}

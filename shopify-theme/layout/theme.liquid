@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="author" content="IMRAN SAHAB Digital Agency">
+    <title>{{ page_title }}{% unless page_title contains shop.name %} — {{ shop.name }}{% endunless %}</title>
+    {%- if page_description != blank -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@600&display=swap">
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+    <script>
+      window.theme = {
+        routes: {
+          cart: {{ routes.cart_url | json }},
+          cartAdd: {{ routes.cart_add_url | json }},
+          cartJson: {{ routes.cart_url | append: '.js' | json }},
+          cartChange: {{ routes.cart_change_url | json }}
+        },
+        strings: {
+          addedPiece: {{ 'product.added_piece' | t | json }},
+          addedLook: {{ 'product.added_look' | t | json }},
+          chooseSize: {{ 'product.choose_size' | t | json }},
+          unavailable: {{ 'product.unavailable' | t | json }}
+        }
+      };
+    </script>
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+
+    {{ content_for_header }}
+  </head>
+  <body class="template-{{ template.name }}">
+    {% sections 'header-group' %}
+
+    <main id="MainContent">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    <div id="bag-status" role="status" aria-live="polite"></div>
+  </body>
+</html>

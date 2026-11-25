@@ -1,0 +1,12 @@
+{%- comment -%} A look standing on the ring. Params: block, index, image {%- endcomment -%}
+{%- assign number = index | plus: 1 -%}
+{%- assign ratio = image.aspect_ratio | default: 0.5625 -%}
+<div class="rw__model" data-rw-model data-index="{{ index }}" aria-hidden="true">
+  <span class="rw__shadow"></span>
+  <div class="rw__figure" style="--rw-ar:{{ ratio }}">
+    <div class="rw__art">
+      {%- render 'runway-model', image: image, name: block.settings.name -%}
+      <button class="rw__hit" type="button" data-rw-go="{{ index }}" aria-label="{{ 'runway.look_label' | t: number: number, name: block.settings.name }}" tabindex="-1"></button>
+    </div>
+  </div>
+</div>

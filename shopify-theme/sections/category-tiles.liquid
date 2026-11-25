@@ -1,0 +1,39 @@
+<section class="sx-block" id="shop">
+  <div class="sx-wrap">
+    <div class="sx-block__head"><h2 class="sx-h2">{{ section.settings.heading }}</h2></div>
+    <div class="sx-tiles">
+      {%- for block in section.blocks -%}
+        <a class="sx-tile" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
+          <div class="sx-card__img">
+            {%- if block.settings.image -%}
+              <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+            {%- endif -%}
+          </div>
+          <div class="sx-tile__label">{{ block.settings.title }}<span>{{ block.settings.cta }}</span></div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Category tiles",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by piece" }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Shoes" },
+        { "type": "text", "id": "cta", "label": "Label", "default": "Shop" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Category tiles" }]
+}
+{% endschema %}

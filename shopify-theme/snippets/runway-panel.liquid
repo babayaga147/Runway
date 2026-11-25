@@ -1,0 +1,49 @@
+{%- comment -%}
+  The "In this look" panel for one look.
+  Params: block, index, percent, products
+{%- endcomment -%}
+{%- assign total = 0 -%}
+{%- for product in products -%}
+  {%- assign total = total | plus: product.selected_or_first_available_variant.price -%}
+{%- endfor -%}
+{%- assign cut = total | times: percent | divided_by: 100 -%}
+{%- assign discounted = total | minus: cut -%}
+{%- assign discounted_price = discounted | money -%}
+
+<div class="rw__look-panel{% if index == 0 %} is-in{% endif %}" data-rw-panel="{{ index }}"{% unless index == 0 %} hidden{% endunless %}>
+  <div class="rw__mhead">
+    <span class="rw__mhead-title">{{ block.settings.name }}</span>
+    <span class="rw__label">{{ 'runway.pieces' | t: count: products.size }}</span>
+  </div>
+
+  <ul class="rw__items" role="list">
+    {%- for product in products -%}
+      {%- render 'runway-item', product: product, number: forloop.index, uid: block.id | append: '-' | append: forloop.index -%}
+    {%- endfor -%}
+  </ul>
+
+  {%- if products.size > 1 -%}
+    <div class="rw__bundle has-rule">
+      <p class="rw__msg" data-rw-msg role="status" aria-live="polite"></p>
+      <div class="rw__bundle-row">
+        <div class="rw__bundle-copy">
+          <span class="rw__bundle-title">{{ 'runway.complete_look' | t }}</span>
+          {%- if percent > 0 -%}
+            <span class="rw__bundle-note">{{ 'runway.bundle_note' | t: count: products.size, percent: percent }}</span>
+          {%- endif -%}
+        </div>
+        <div class="rw__bundle-price">
+          {%- if percent > 0 -%}<s>{{ total | money }}</s><strong>{{ discounted | money }}</strong>{%- else -%}<strong>{{ total | money }}</strong>{%- endif -%}
+        </div>
+      </div>
+      <button class="rw__cta" type="button" data-rw-all>
+        <span class="rw__cta-add">{{ 'runway.add_full_look' | t }}</span>
+        <span class="rw__cta-m">{{ 'runway.add_full_look_price' | t: price: discounted_price }}</span>
+        <span class="rw__cta-done">{{ 'runway.full_look_added' | t }}</span>
+        <svg class="rw__cta-arrow" width="22" height="12" viewBox="0 0 26 14" aria-hidden="true"><path d="M1 7h24M19 1l6 6-6 6"/></svg>
+        <svg class="rw__cta-spin" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 1-9 9"/></svg>
+      </button>
+    </div>
+  {%- endif -%}
+  <template data-rw-pieces-text>{{ 'runway.pieces' | t: count: products.size }}</template>
+</div>

@@ -1,0 +1,6 @@
+{%- comment -%} Params: block, index {%- endcomment -%}
+{%- assign number = index | plus: 1 -%}
+<button class="rw__tick" type="button" data-rw-tick="{{ index }}" aria-current="{% if index == 0 %}true{% else %}false{% endif %}" aria-label="{{ 'runway.look_label' | t: number: number, name: block.settings.name }}">
+  <span class="rw__tick-bar"></span>
+  <span class="rw__tick-label">{{ number | prepend: '0' | slice: -2, 2 }}<span class="rw__tick-name">&nbsp;&nbsp;{{ block.settings.name }}</span></span>
+</button>

@@ -1,0 +1,21 @@
+{%- comment -%} Params: block, index, image, products {%- endcomment -%}
+{%- assign number = index | plus: 1 -%}
+{%- assign ratio = image.aspect_ratio | default: 0.5625 -%}
+<div class="rw__hero{% if index == 0 %} is-on{% endif %}" data-rw-hero data-index="{{ index }}" data-name="{{ block.settings.name | escape }}" data-label="{{ 'runway.look_label' | t: number: number, name: block.settings.name }}" data-probe="{{ image | image_url: width: 640 }}" aria-hidden="{% if index == 0 %}false{% else %}true{% endif %}">
+  <div class="rw__morph">
+    <span class="rw__shadow"></span>
+    <div class="rw__figure" style="--rw-ar:{{ ratio }}">
+      <div class="rw__art">
+        {%- render 'runway-model', image: image, name: block.settings.name -%}
+        <button class="rw__zoom" type="button" data-rw-zoom aria-label="{{ 'runway.view_look' | t: name: block.settings.name }}" tabindex="{% if index == 0 %}0{% else %}-1{% endif %}"></button>
+        <div class="rw__pins">
+          {%- for product in products -%}
+            {%- assign x_key = 'pin_' | append: forloop.index | append: '_x' -%}
+            {%- assign y_key = 'pin_' | append: forloop.index | append: '_y' -%}
+            <button class="rw__pin" type="button" data-rw-pin="{{ forloop.index }}" data-tip="{{ product.title | escape }}" style="left:{{ block.settings[x_key] }}%;top:{{ block.settings[y_key] }}%;--pi:{{ forloop.index }}" aria-label="{{ forloop.index }}: {{ product.title | escape }}" tabindex="-1"><span class="rw__pin-dot">{{ forloop.index }}</span></button>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

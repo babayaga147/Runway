@@ -1,0 +1,32 @@
+<section class="sx-block sx-block--flush" id="story">
+  <div class="sx-story">
+    <div class="sx-story__img">
+      {%- if section.settings.image -%}
+        <img src="{{ section.settings.image | image_url: width: 1080 }}" alt="{{ section.settings.image.alt | escape }}" loading="lazy">
+      {%- endif -%}
+    </div>
+    <div class="sx-story__copy">
+      <p class="sx-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="sx-h2">{{ section.settings.heading }}</h2>
+      <p class="sx-lede">{{ section.settings.text }}</p>
+      {%- if section.settings.button_label != blank -%}
+        <a class="sx-btn" href="{{ section.settings.button_link | default: '#MainContent' }}">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The idea" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Three pieces. One look." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Every look on the runway is built from pieces you can also buy on their own. Pick a look, tap a pin to see each piece, and add the full outfit in one go." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Try a look" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [{ "name": "Story" }]
+}
+{% endschema %}

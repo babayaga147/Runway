@@ -1,0 +1,114 @@
+{
+  "sections": {
+    "runway": {
+      "type": "runway",
+      "blocks": {
+        "look_1": {
+          "type": "look",
+          "settings": {
+            "name": "The City Edit"
+          }
+        },
+        "look_2": {
+          "type": "look",
+          "settings": {
+            "name": "Gallery Opening"
+          }
+        },
+        "look_3": {
+          "type": "look",
+          "settings": {
+            "name": "Studio Day"
+          }
+        }
+      },
+      "block_order": [
+        "look_1",
+        "look_2",
+        "look_3"
+      ],
+      "settings": {
+        "heading": "Try the Look.",
+        "subheading": "Styled head to toe. Tap a pin to see the piece."
+      }
+    },
+    "featured": {
+      "type": "featured-products",
+      "blocks": {
+        "p1": {
+          "type": "product",
+          "settings": {}
+        },
+        "p2": {
+          "type": "product",
+          "settings": {}
+        },
+        "p3": {
+          "type": "product",
+          "settings": {}
+        },
+        "p4": {
+          "type": "product",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ]
+    },
+    "story": {
+      "type": "story"
+    },
+    "tiles": {
+      "type": "category-tiles",
+      "blocks": {
+        "t1": {
+          "type": "tile",
+          "settings": {
+            "title": "Shoes"
+          }
+        },
+        "t2": {
+          "type": "tile",
+          "settings": {
+            "title": "Shirts"
+          }
+        },
+        "t3": {
+          "type": "tile",
+          "settings": {
+            "title": "Hoodies"
+          }
+        },
+        "t4": {
+          "type": "tile",
+          "settings": {
+            "title": "Trousers"
+          }
+        },
+        "t5": {
+          "type": "tile",
+          "settings": {
+            "title": "Suits"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5"
+      ]
+    }
+  },
+  "order": [
+    "runway",
+    "featured",
+    "story",
+    "tiles"
+  ]
+}

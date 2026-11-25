@@ -1,0 +1,77 @@
+{
+  "header": {
+    "home": "{{ brand }} home",
+    "main_nav": "Main navigation",
+    "shop_nav": "Shop by piece",
+    "open_bag": "Open bag"
+  },
+  "product": {
+    "add": "Add to bag",
+    "added": "Added to bag ✓",
+    "added_piece": "Piece saved to your bag",
+    "added_look": "Look saved to your bag",
+    "choose_size": "Choose a size first",
+    "unavailable": "That size is unavailable",
+    "sold_out": "Sold out",
+    "view_bag": "View bag",
+    "view_product": "View product",
+    "size": "Size"
+  },
+  "cart": {
+    "eyebrow": "Bag",
+    "title": "Your bag",
+    "empty": "Your bag is empty. Choose a size beside a piece to save it here.",
+    "continue_shopping": "Keep shopping",
+    "summary": "Summary",
+    "pieces": {
+      "one": "{{ count }} piece",
+      "other": "{{ count }} pieces"
+    },
+    "subtotal": "Subtotal",
+    "delivery_note": "Delivery is confirmed at checkout.",
+    "checkout": "Continue to checkout",
+    "decrease": "Decrease quantity: {{ title }}",
+    "increase": "Increase quantity: {{ title }}",
+    "remove": "Remove",
+    "remove_label": "Remove {{ title }}"
+  },
+  "collection": {
+    "eyebrow": "Shop",
+    "empty": "No products in this collection yet.",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "runway": {
+    "choose_size": "Pick a size for: [items]",
+    "error": "Couldn’t add to bag. Please try again.",
+    "sold_out": "Sold out",
+    "look_label": "Look {{ number }}: {{ name }}",
+    "view_look": "View look: {{ name }}",
+    "previous": "Previous look",
+    "next": "Next look",
+    "autoplay": "Autoplay",
+    "close": "Close",
+    "in_this_look": "In this look",
+    "pieces": {
+      "one": "{{ count }} piece",
+      "other": "{{ count }} pieces"
+    },
+    "complete_look": "Complete the look",
+    "bundle_note": "Bundle all {{ count }} and save {{ percent }}%",
+    "add_full_look": "Add full look to bag",
+    "add_full_look_price": "Add full look — {{ price }}",
+    "full_look_added": "Full look in your bag",
+    "add_to_bag": "Add to bag",
+    "added_to_bag": "Added to bag: {{ title }}",
+    "pin_hint": "Tap a dot to shop the piece",
+    "drag": "Drag",
+    "view": "View",
+    "look_word": "Look",
+    "no_looks": "Add looks with a model image to show the runway."
+  },
+  "page": {
+    "not_found_title": "Page not found",
+    "not_found_text": "The page you are looking for doesn’t exist.",
+    "back_home": "Back to home"
+  }
+}

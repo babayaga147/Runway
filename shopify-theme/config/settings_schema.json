@@ -1,0 +1,16 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Runway",
+    "theme_version": "1.0.0",
+    "theme_author": "IMRAN SAHAB Digital Agency",
+    "theme_documentation_url": "https://github.com/babayaga147/Runway",
+    "theme_support_url": "https://github.com/babayaga147/Runway/issues"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "text", "id": "brand_name", "label": "Brand name", "default": "ZS Collection" }
+    ]
+  }
+]

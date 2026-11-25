@@ -1,0 +1,21 @@
+{%- if section.settings.menu != blank and linklists[section.settings.menu].links.size > 0 -%}
+  <nav class="sx-strip" aria-label="{{ 'header.shop_nav' | t }}">
+    {%- for link in linklists[section.settings.menu].links -%}
+      <a href="{{ link.url }}"{% if link.current or link.child_current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+    {%- endfor -%}
+  </nav>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Shop strip",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "info": "Create a menu with the handle “shop” (Shoes, Shirts, Hoodies, Trousers, Suits)."
+    }
+  ]
+}
+{% endschema %}

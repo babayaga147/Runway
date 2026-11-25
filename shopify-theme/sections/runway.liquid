@@ -1,0 +1,214 @@
+{{ 'runway.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'runway.js' | asset_url }}" defer></script>
+
+{%- assign looks = section.blocks | where: 'settings.image' -%}
+{%- if looks.size == 0 -%}
+  <p class="sx-wrap sx-lede">{{ 'runway.no_looks' | t }}</p>
+{%- else -%}
+<runway-section id="Runway-{{ section.id }}" class="rw rw--add-icon rw--popup rw--list has-dividers has-border" data-feel="balanced" data-blur="true" data-mblur="true" data-style="ring" data-mstyle="classic" data-fit="true" data-height-mode="original" data-height-vh="100" data-mheight-mode="custom" data-mheight-vh="109" data-reflect="false" data-autoplay="{{ section.settings.autoplay }}" data-speed="{{ section.settings.speed | times: 1000 }}" data-after-add="stay" data-bundle-code="{{ section.settings.bundle_code | escape }}" data-msg-choose="{{ 'runway.choose_size' | t }}" data-msg-error="{{ 'runway.error' | t }}" data-msg-soldout="{{ 'runway.sold_out' | t }}" style="--rw-speed:{{ section.settings.speed }}s" {{ section.shopify_attributes }}>
+  <div class="rw__sticky"><div class="rw__grid">
+    <div class="rw__left">
+      <div class="rw__head">
+        <div class="rw__intro">
+          <h2 class="rw__title">{{ section.settings.heading }}</h2>
+          <p class="rw__sub">{{ section.settings.subheading }}</p>
+        </div>
+        <span class="rw__sr" aria-live="polite" aria-atomic="true" data-rw-live></span>
+      </div>
+
+      <div class="rw__stage" data-rw-stage tabindex="0" role="region" aria-roledescription="carousel" aria-label="{{ section.settings.heading | escape }}">
+        <div class="rw__actors" data-rw-actors>
+          {%- for block in looks -%}
+            {%- render 'runway-actor', block: block, index: forloop.index0, image: block.settings.image -%}
+          {%- endfor -%}
+        </div>
+        <div class="rw__heroes" data-rw-heroes>
+          {%- for block in looks -%}
+            {%- render 'runway-hero', block: block, index: forloop.index0, image: block.settings.image, products: block.settings.products -%}
+          {%- endfor -%}
+        </div>
+        <span class="rw__sweep"></span>
+        <span class="rw__cursor" data-rw-cursor><span class="rw__cursor-in"><span class="rw__cursor-label rw__cursor-drag">{{ 'runway.drag' | t }}</span><span class="rw__cursor-label rw__cursor-view">{{ 'runway.view' | t }}</span></span></span>
+        <span class="rw__walk"><span class="rw__walk-line"></span></span>
+      </div>
+
+      <div class="rw__controls">
+        <button class="rw__icon" type="button" data-rw-prev aria-label="{{ 'runway.previous' | t }}"><svg width="26" height="14" viewBox="0 0 26 14" aria-hidden="true"><path d="M25 7H1M7 1L1 7l6 6"/></svg></button>
+        <div class="rw__ticks">
+          {%- for block in looks -%}
+            {%- render 'runway-tick', block: block, index: forloop.index0 -%}
+          {%- endfor -%}
+        </div>
+        <button class="rw__icon rw__auto" type="button" data-rw-auto aria-pressed="false" aria-label="{{ 'runway.autoplay' | t }}">
+          <svg class="rw__ic-play" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg>
+          <svg class="rw__ic-pause" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4.5h3.5v15H6.5zM14 4.5h3.5v15H14z"/></svg>
+        </button>
+        <button class="rw__icon" type="button" data-rw-next aria-label="{{ 'runway.next' | t }}"><svg width="26" height="14" viewBox="0 0 26 14" aria-hidden="true"><path d="M1 7h24M19 1l6 6-6 6"/></svg></button>
+      </div>
+
+      <div class="rw__lb" data-rw-lb data-word="{{ 'runway.look_word' | t }}" role="region" aria-label="{{ 'runway.view' | t }}" aria-hidden="true">
+        <div class="rw__lb-stage" data-rw-lb-stage></div>
+        <div class="rw__lb-top">
+          <p class="rw__lb-cap"><span class="rw__lb-kicker" data-rw-lb-kicker></span><span class="rw__lb-name" data-rw-lb-name></span></p>
+          <button class="rw__lb-close" type="button" data-rw-zoom-close aria-label="{{ 'runway.close' | t }}"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+        </div>
+        <p class="rw__lb-hint">{{ 'runway.pin_hint' | t }}</p>
+      </div>
+    </div>
+
+    <aside class="rw__panel has-rule"><div class="rw__panel-inner">
+      <div class="rw__panel-head"><h3 class="rw__panel-title">{{ 'runway.in_this_look' | t }}</h3><span class="rw__label" data-rw-pieces></span></div>
+      {%- for block in looks -%}
+        {%- render 'runway-panel', block: block, index: forloop.index0, products: block.settings.products, percent: section.settings.bundle_percent -%}
+      {%- endfor -%}
+    </div></aside>
+  </div></div>
+</runway-section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Runway",
+  "tag": "section",
+  "class": "section-runway",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Try the Look."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Seven looks, styled head to toe. Tap a pin to see the piece."
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Seconds per look",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "bundle_percent",
+      "label": "Full-look saving",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "default": 10,
+      "info": "Shown beside “Add full look”. Create a matching automatic or code discount in Shopify."
+    },
+    {
+      "type": "text",
+      "id": "bundle_code",
+      "label": "Bundle discount code",
+      "info": "Optional. Applied to the cart when a full look is added."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "look",
+      "name": "Look",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Look name",
+          "default": "The City Edit"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Model image",
+          "info": "Transparent PNG or WebP, full length, about 1100 × 1956 px."
+        },
+        {
+          "type": "product_list",
+          "id": "products",
+          "label": "Products in this look",
+          "limit": 3
+        },
+        {
+          "type": "range",
+          "id": "pin_1_x",
+          "label": "Pin 1 — across",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "pin_1_y",
+          "label": "Pin 1 — down",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 28
+        },
+        {
+          "type": "range",
+          "id": "pin_2_x",
+          "label": "Pin 2 — across",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 48
+        },
+        {
+          "type": "range",
+          "id": "pin_2_y",
+          "label": "Pin 2 — down",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 58
+        },
+        {
+          "type": "range",
+          "id": "pin_3_x",
+          "label": "Pin 3 — across",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 45
+        },
+        {
+          "type": "range",
+          "id": "pin_3_y",
+          "label": "Pin 3 — down",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 88
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Runway"
+    }
+  ]
+}
+{% endschema %}

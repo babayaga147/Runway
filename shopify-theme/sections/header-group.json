@@ -1,0 +1,9 @@
+{
+  "name": "Header group",
+  "type": "header",
+  "sections": {
+    "header": { "type": "header", "settings": { "menu": "main-menu" } },
+    "shop-strip": { "type": "shop-strip", "settings": { "menu": "shop" } }
+  },
+  "order": ["header", "shop-strip"]
+}
